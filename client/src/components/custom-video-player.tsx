@@ -31,46 +31,66 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
   const [volume, setVolume] = useState(1);
   const [showControls, setShowControls] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isApiReady, setIsApiReady] = useState(false);
 
+  // Initialize YouTube API
   useEffect(() => {
-    // Load YouTube IFrame API
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-    // Initialize player when API is ready
-    window.onYouTubeIframeAPIReady = () => {
-      const videoId = videoUrl.includes('youtu.be') 
-        ? videoUrl.split('youtu.be/')[1]
-        : videoUrl.split('v=')[1]?.split('&')[0];
+      window.onYouTubeIframeAPIReady = () => {
+        setIsApiReady(true);
+      };
+    } else {
+      setIsApiReady(true);
+    }
+  }, []);
 
-      playerRef.current = new window.YT.Player('youtube-player', {
-        videoId: videoId,
-        playerVars: {
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          showinfo: 0,
-          autoplay: 0
+  // Initialize player when API is ready
+  useEffect(() => {
+    if (!isApiReady) return;
+
+    const videoId = videoUrl.includes('youtu.be') 
+      ? videoUrl.split('youtu.be/')[1]
+      : videoUrl.split('v=')[1]?.split('&')[0];
+
+    if (!videoId) return;
+
+    const player = new window.YT.Player('youtube-player', {
+      videoId: videoId,
+      playerVars: {
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+        autoplay: 0
+      },
+      events: {
+        onReady: () => {
+          playerRef.current = player;
+          setDuration(player.getDuration());
+          // Restore volume state
+          player.setVolume(volume * 100);
         },
-        events: {
-          onStateChange: (event: any) => {
-            setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
-            if (event.data === window.YT.PlayerState.PLAYING) {
-              setDuration(playerRef.current.getDuration());
-            }
+        onStateChange: (event: any) => {
+          setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+          if (event.data === window.YT.PlayerState.PLAYING) {
+            setDuration(player.getDuration());
           }
         }
-      });
-    };
+      }
+    });
 
     return () => {
       if (playerRef.current) {
         playerRef.current.destroy();
+        playerRef.current = null;
       }
     };
-  }, [videoUrl]);
+  }, [isApiReady, videoUrl, volume]);
 
   // Update player controls
   const togglePlay = () => {
