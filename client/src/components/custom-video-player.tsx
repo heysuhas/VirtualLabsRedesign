@@ -1,0 +1,231 @@
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
+  Minimize,
+  RotateCcw,
+} from "lucide-react";
+
+interface CustomVideoPlayerProps {
+  videoUrl: string;
+}
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
+export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) {
+  const playerRef = useRef<any>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [showControls, setShowControls] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    // Load YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+    // Initialize player when API is ready
+    window.onYouTubeIframeAPIReady = () => {
+      const videoId = videoUrl.includes('youtu.be') 
+        ? videoUrl.split('youtu.be/')[1]
+        : videoUrl.split('v=')[1]?.split('&')[0];
+
+      playerRef.current = new window.YT.Player('youtube-player', {
+        videoId: videoId,
+        playerVars: {
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          showinfo: 0,
+          autoplay: 0
+        },
+        events: {
+          onStateChange: (event: any) => {
+            setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              setDuration(playerRef.current.getDuration());
+            }
+          }
+        }
+      });
+    };
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy();
+      }
+    };
+  }, [videoUrl]);
+
+  // Update player controls
+  const togglePlay = () => {
+    if (!playerRef.current) return;
+    if (isPlaying) {
+      playerRef.current.pauseVideo();
+    } else {
+      playerRef.current.playVideo();
+    }
+  };
+
+  const handleTimeChange = (value: number) => {
+    if (!playerRef.current) return;
+    playerRef.current.seekTo(value);
+    setCurrentTime(value);
+  };
+
+  const handleVolumeChange = (value: number) => {
+    if (!playerRef.current) return;
+    playerRef.current.setVolume(value * 100);
+    setVolume(value);
+  };
+
+  const toggleMute = () => {
+    if (!playerRef.current) return;
+    if (volume === 0) {
+      playerRef.current.unMute();
+      setVolume(1);
+    } else {
+      playerRef.current.mute();
+      setVolume(0);
+    }
+  };
+
+  // Update time tracking
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (playerRef.current && isPlaying) {
+        setCurrentTime(playerRef.current.getCurrentTime());
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  const toggleFullscreen = () => {
+    if (!playerRef.current) return;
+    if (!document.fullscreenElement) {
+      playerRef.current.getIframe().requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
+  return (
+    <div
+      className="relative group"
+      onMouseEnter={() => setShowControls(true)}
+      onMouseLeave={() => setShowControls(false)}
+    >
+      <div id="youtube-player" className="w-full aspect-video" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: showControls ? 1 : 0, y: showControls ? 0 : 20 }}
+        transition={{ duration: 0.2 }}
+        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4"
+      >
+        <div className="space-y-2">
+          <Slider
+            value={[currentTime]}
+            max={duration}
+            step={1}
+            onValueChange={([value]) => handleTimeChange(value)}
+            className="cursor-pointer"
+          />
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={togglePlay}
+                className="hover:bg-white/20"
+              >
+                {isPlaying ? (
+                  <Pause className="h-4 w-4" />
+                ) : (
+                  <Play className="h-4 w-4" />
+                )}
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleMute}
+                className="hover:bg-white/20"
+              >
+                {volume === 0 ? (
+                  <VolumeX className="h-4 w-4" />
+                ) : (
+                  <Volume2 className="h-4 w-4" />
+                )}
+              </Button>
+
+              <Slider
+                value={[volume]}
+                max={1}
+                step={0.1}
+                onValueChange={([value]) => handleVolumeChange(value)}
+                className="w-24 relative z-50 bg-white/10 rounded-full" // Add background and z-index
+              />
+
+              <span className="text-sm text-white">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </span>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  if (!playerRef.current) return;
+                  playerRef.current.seekTo(0);
+                }}
+                className="hover:bg-white/20"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleFullscreen}
+                className="hover:bg-white/20"
+              >
+                {isFullscreen ? (
+                  <Minimize className="h-4 w-4" />
+                ) : (
+                  <Maximize className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
