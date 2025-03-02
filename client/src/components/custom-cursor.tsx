@@ -49,9 +49,9 @@ export default function CustomCursor() {
           y: position.y - 16,
         }}
         transition={{
-          type: "tween", // Change to tween for smoother movement
-          duration: 0.1,  // Reduce duration
-          ease: "linear"  // Use linear easing
+          type: "tween", 
+          duration: 0.1,  
+          ease: "linear"  
         }}
       />
       <motion.div
