@@ -171,26 +171,26 @@ export default function Landing() {
               <h3 className="font-semibold text-lg">Follow Us</h3>
               <div className="flex gap-4">
                 <a href="https://github.com/" 
-                   className="text-muted-foreground hover:text-primary transition-colors"
+                   className="text-muted-foreground hover:text-primary dark:hover:text-white transition-colors"
                    target="_blank" rel="noopener noreferrer">
                   <Github size={20} />
                 </a>
-                <a href="https://twitter.com/" 
-                   className="text-muted-foreground hover:text-primary transition-colors"
+                <a href="https://x.com/TheVirtualLabs" 
+                   className="text-muted-foreground hover:text-white dark:hover:text-white transition-colors"
                    target="_blank" rel="noopener noreferrer">
                   <Twitter size={20} />
                 </a>
                 <a href="https://www.linkedin.com/" 
-                   className="text-muted-foreground hover:text-primary transition-colors"
+                   className="text-muted-foreground hover:text-white dark:hover:text-white transition-colors"
                    target="_blank" rel="noopener noreferrer">
                   <Linkedin size={20} />
                 </a>
                 <a href="mailto:support@vlabs.ac.in" 
-                   className="text-muted-foreground hover:text-primary transition-colors">
+                   className="text-muted-foreground hover:text-white dark:hover:text-white transition-colors">
                   <Mail size={20} />
                 </a>
-                <a href="https://www.facebook.com/" 
-                   className="text-muted-foreground hover:text-primary transition-colors"
+                <a href="https://www.facebook.com/vlead.iiithyd" 
+                   className="text-muted-foreground hover:text-white dark:hover:text-white transition-colors"
                    target="_blank" rel="noopener noreferrer">
                   <Facebook size={20} />
                 </a>

@@ -1,45 +1,86 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-
-interface Position {
-  x: number;
-  y: number;
-}
+import { useState, useEffect, useCallback } from "react";
+import { motion, useSpring } from "framer-motion";
 
 const BlobCursor = () => {
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const cursorX = useSpring(0, { 
+    stiffness: 1000, 
+    damping: 50,
+    mass: 0.1
+  });
+  const cursorY = useSpring(0, { 
+    stiffness: 1000, 
+    damping: 50,
+    mass: 0.1
+  });
   const [isPointer, setIsPointer] = useState(false);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      const target = e.target as HTMLElement;
-      setIsPointer(
-        window.getComputedStyle(target).cursor === "pointer" ||
-        target.tagName.toLowerCase() === "button" ||
-        target.tagName.toLowerCase() === "a"
-      );
-    };
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    cursorX.set(e.clientX);
+    cursorY.set(e.clientY);
+    const target = e.target as HTMLElement;
+    setIsPointer(
+      window.getComputedStyle(target).cursor === "pointer" ||
+      target.tagName.toLowerCase() === "button" ||
+      target.tagName.toLowerCase() === "a"
+    );
+  }, [cursorX, cursorY]);
 
+  useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <motion.div
       className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
-      animate={{
-        x: position.x - 6,
-        y: position.y - 6,
-        scale: isPointer ? 1.5 : 1
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 500,
-        damping: 28
+      style={{
+        x: cursorX,
+        y: cursorY,
+        translateX: -6,
+        translateY: -6
       }}
     >
-      <div className="w-3 h-3 bg-white dark:bg-white rounded-full opacity-80" />
+      <motion.div
+        animate={{
+          scale: isPointer ? 1.8 : 1.4,
+          rotate: isPointer ? -45 : -135 // Changed rotation values
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 800,
+          damping: 35,
+          mass: 0.1
+        }}
+      >
+        <div className="relative w-4 h-4">
+          {/* Main Triangle */}
+          <div
+            className="absolute origin-center"
+            style={{
+              width: "0",
+              height: "0",
+              borderLeft: "8px solid white",
+              borderTop: "4px solid transparent",
+              borderBottom: "4px solid transparent",
+              filter: "drop-shadow(0 0 2px rgba(0,0,0,0.1))",
+              opacity: 0.9
+            }}
+          />
+          {/* Subtle Glow Effect */}
+          <div
+            className="absolute blur-[1px] origin-center"
+            style={{
+              width: "0",
+              height: "0",
+              borderLeft: "8px solid rgba(255,255,255,0.5)",
+              borderTop: "4px solid transparent",
+              borderBottom: "4px solid transparent",
+              transform: "scale(1.2)",
+              opacity: 0.3
+            }}
+          />
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
