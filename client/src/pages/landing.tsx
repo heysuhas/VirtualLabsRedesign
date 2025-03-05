@@ -25,9 +25,8 @@ export default function Landing() {
 
   return (
     <div className="relative w-full bg-background">
-      {/* Main content wrapper - exactly viewport height */}
       <div className="h-screen w-full flex flex-col relative overflow-hidden">
-        {/* Background pattern - same as before */}
+        {/* Background pattern */}
         <motion.div className="absolute inset-0">
           <svg className="absolute inset-0 w-[200%] h-[200%] opacity-10 dark:opacity-20">
             <defs>
@@ -82,21 +81,21 @@ export default function Landing() {
           </svg>
         </motion.div>
 
-        {/* Main content - centered in viewport */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center space-y-12">
-          {/* Title with adjusted line height and padding */}
+        {/* Main content - centered */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4">
+          {/* Title */}
           <motion.h1 
             className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
               from-primary via-primary/80 to-primary/60 dark:from-white dark:to-white/60
-              leading-normal py-3" // Added leading-normal and py-2
+              leading-relaxed text-center mb-12 py-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Virtual Engineering Labs
           </motion.h1>
 
-          {/* Cards Grid with adjusted space */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-8">
+          {/* Cards Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto mb-12">
             {engineeringFields.map((field, i) => (
               <motion.div
                 key={i}
@@ -116,13 +115,8 @@ export default function Landing() {
             ))}
           </div>
 
-          {/* Button with reduced margin */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-2"
-          >
+          {/* Button */}
+          <motion.div className="mb-8">
             <Link href="/home">
               <Button 
                 size="lg"
@@ -136,7 +130,7 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* Footer - starts at viewport end */}
+      {/* Footer */}
       <motion.footer 
         ref={footerRef}
         initial={{ opacity: 0, y: 60 }}
@@ -146,7 +140,7 @@ export default function Landing() {
         }}
         transition={{
           duration: 0.8,
-          ease: [0.33, 1, 0.68, 1]  // Custom easing
+          ease: [0.33, 1, 0.68, 1]  
         }}
         className="relative z-20 w-full bg-background/80 backdrop-blur-sm border-t border-primary/10 dark:border-white/10"
       >
