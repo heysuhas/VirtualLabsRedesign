@@ -7,8 +7,8 @@ import { Github, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTu
 const engineeringFields = [
   { name: 'Electronics', icon: <Cpu size={32} />, color: 'from-yellow-500/30' },
   { name: 'Mechanics', icon: <Cog size={32} />, color: 'from-blue-500/30' },
-  { name: 'Computer', icon: <MonitorDot size={32} />, color: 'from-green-500/30' },
-  { name: 'Chemical', icon: <TestTube2 size={32} />, color: 'from-purple-500/30' }
+  { name: 'Computer Science', icon: <MonitorDot size={32} />, color: 'from-green-500/30' },
+  { name: 'Chemistry', icon: <TestTube2 size={32} />, color: 'from-purple-500/30' }
 ];
 
 export default function Landing() {
