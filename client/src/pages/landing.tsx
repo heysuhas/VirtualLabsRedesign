@@ -84,9 +84,11 @@ export default function Landing() {
 
       {/* Main Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center space-y-12 py-8">
-        {/* Title */}
+        {/* Title with adjusted line height and padding */}
         <motion.h1 
-          className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/60 dark:from-white dark:to-white/60"
+          className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
+            from-primary via-primary/80 to-primary/60 dark:from-white dark:to-white/60
+            leading-normal py-3" // Added leading-normal and py-2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
