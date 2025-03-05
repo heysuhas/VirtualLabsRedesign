@@ -77,7 +77,7 @@ export default function NavigationHeader() {
                   <div className="w-[400px] p-4 md:w-[500px] lg:w-[600px]">
                     <div className="grid gap-3 p-4">
                       <div className="grid grid-cols-3 gap-4">
-                        <Link href="/">
+                        <Link href="/home">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             <div className="text-sm font-medium leading-none">Learner</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
