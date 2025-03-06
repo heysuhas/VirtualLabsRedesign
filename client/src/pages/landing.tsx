@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useAnimation, useInView, useMotionValue, useAnimationControls } from 'framer-motion';
 import { Youtube, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTube2 } from 'lucide-react';
 
 const engineeringFields = [
@@ -11,7 +11,7 @@ const engineeringFields = [
   { name: 'Chemistry', icon: <TestTube2 size={32} />, color: 'from-purple-500/30' }
 ];
 
-const CardComponent = ({ field, index }: { field: any, index: number }) => {
+const CardComponent = ({ field, index, onHover }: { field: any, index: number, onHover: (hovering: boolean) => void }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -19,21 +19,22 @@ const CardComponent = ({ field, index }: { field: any, index: number }) => {
     setIsDark(isDarkMode);
   }, []);
 
-
   return (
     <motion.div
       className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
         border border-primary/10 dark:border-white/10
-        flex flex-col items-center text-center min-w-[250px]
+        flex flex-col items-center text-center min-w-[250px] cursor-pointer
         ${field.color} to-transparent`}
       whileHover={{ 
         scale: 1.05,
         y: -10,
         boxShadow: isDark
-        ? "0 20px 30px -10px rgba(255,255,255,0.2)"
-        : "0 20px 30px -10px rgba(0,0,0,0.4)",
+          ? "0 20px 30px -10px rgba(255,255,255,0.2)"
+          : "0 20px 30px -10px rgba(0,0,0,0.4)",
         transition: { duration: 0.2, ease: "easeOut" }
       }}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
     >
       <motion.div 
         className="mb-4 text-primary dark:text-white/90"
@@ -48,68 +49,74 @@ const CardComponent = ({ field, index }: { field: any, index: number }) => {
 };
 
 const CardCarousel = () => {
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimationControls();
+  const x = useMotionValue(-width);
   
-  // Create two sets of cards to create the illusion of infinity
   const duplicatedFields = [...engineeringFields, ...engineeringFields, ...engineeringFields];
   
   useEffect(() => {
     if (carouselRef.current) {
-      // Calculate the width of a single set of cards
-      setWidth(carouselRef.current.scrollWidth / 3);
+      setWidth(carouselRef.current.scrollWidth / 2);
     }
   }, []);
 
   useEffect(() => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollLeft = 0;
-      const scroll = () => {
-        if (carouselRef.current) {
-          if (carouselRef.current.scrollLeft >= width) {
-            carouselRef.current.scrollLeft = 0;
-          } else {
-            carouselRef.current.scrollLeft += 2; 
-          }
+  if (isPaused) {
+    controls.stop();
+  } else {
+    controls.start({
+      x: [x.get(), -width], // Resume from current position
+      transition: {
+        x: {
+          from: x.get(), // Continue from where it stopped
+          to: -width,
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: (25 * (1 - (x.get() / -width))), // Adjust duration dynamically
+          ease: "linear",
         }
-      };
-      const intervalId = setInterval(scroll, 15); 
-      return () => clearInterval(intervalId);
-    }
-  }, [width]);
+      }
+    });
+  }
+}, [isPaused, controls, width, x]);
+
+  
 
   return (
     <div className="relative w-full max-w-5xl mx-auto mb-12">
       <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10" />
       <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10" />
       
-      {/* Add padding-y to container to accommodate hover effect */}
       <div className="overflow-hidden py-12"> 
         <motion.div 
           ref={carouselRef}
           className="flex gap-8"
-          drag="x"
-          dragConstraints={{ right: 0, left: -width * 2 }}
-          initial={{ x: 0 }}
-          animate={{ 
-            x: [-width, -width * 2],
-          }}
-          transition={{ 
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 30, // Increased speed
-              ease: "linear",
-            }
-          }}
+          initial={{ x: -width }}
+          animate={controls}
+          style={{ x }}
         >
           {duplicatedFields.map((field, i) => (
             <motion.div
               key={i}
-              className="relative" // Add relative positioning
-              style={{ zIndex: 20 }} // Ensure cards appear above gradients
+              className="relative"
+              style={{ zIndex: 20 }}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
             >
-              <CardComponent field={field} index={i} />
+              <div className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
+                border border-primary/10 dark:border-white/10
+                flex flex-col items-center text-center min-w-[250px]
+                ${field.color} to-transparent
+                hover:scale-105 hover:-translate-y-2 transition-transform duration-300`}
+              >
+                <div className="mb-4 text-primary dark:text-white/90">
+                  {field.icon}
+                </div>
+                <h3 className="font-semibold text-lg">{field.name}</h3>
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -306,7 +313,7 @@ export default function Landing() {
             transition={{ delay: 0.4 }}
             className="text-center text-sm text-muted-foreground mt-8 pt-4 border-t border-primary/10 dark:border-white/10"
           >
-            © 2024 Virtual Labs IIIT Hyderabad. All Rights Reserved.
+            © 2025 Virtual Labs IIIT Hyderabad. All Rights Reserved.
           </motion.div>
         </div>
       </motion.footer>
