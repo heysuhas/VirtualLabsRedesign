@@ -51,7 +51,7 @@ export default function NavigationHeader() {
                       <div className="grid grid-cols-2 gap-4">
                         <Link href="/about/overview">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Overview</div>
+                            <div className="text-sm font-medium leading-none">Virtual Labs</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Learn about Virtual Labs initiative
                             </p>
@@ -59,9 +59,9 @@ export default function NavigationHeader() {
                         </Link>
                         <Link href="/about/goals">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Goals and Philosophy</div>
+                            <div className="text-sm font-medium leading-none">VLEAD</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Our mission and objectives
+                            The Virtual Labs Engineering, Architecture, and Design (VLEAD) 
                             </p>
                           </a>
                         </Link>
@@ -115,15 +115,31 @@ export default function NavigationHeader() {
                       <div className="grid grid-cols-2 gap-4">
                         <Link href="/experiments">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Run an Experiment</div>
+                            <div className="text-sm font-medium leading-none">Create Experiment</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Access virtual lab experiments
+                              Host a New Experiment
                             </p>
                           </a>
                         </Link>
-                        <Link href="/contribute">
+                        <Link href="/home">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Contribute</div>
+                            <div className="text-sm font-medium leading-none">Start Learning</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Access Virtual Labs Experiments
+                            </p>
+                          </a>
+                        </Link>
+                        <Link href="/workshop">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="text-sm font-medium leading-none">Host Workshop</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Help to host a Workshop 
+                            </p>
+                          </a>
+                        </Link>
+                        <Link href="/research">
+                          <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                            <div className="text-sm font-medium leading-none">Explore Research</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Help improve Virtual Labs
                             </p>
@@ -143,17 +159,17 @@ export default function NavigationHeader() {
                       <div className="grid grid-cols-2 gap-4">
                         <Link href="/analytics/usage">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">Usage Statistics</div>
+                            <div className="text-sm font-medium leading-none">Summary</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              View platform analytics
+                              View analytics summary
                             </p>
                           </a>
                         </Link>
                         <Link href="/analytics/feedback">
                           <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">User Feedback</div>
+                            <div className="text-sm font-medium leading-none">Detailed Analysis</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              View experiment ratings and comments
+                              Analysis of the Usage
                             </p>
                           </a>
                         </Link>
