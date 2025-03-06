@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { Github, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTube2 } from 'lucide-react';
+import { Youtube, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTube2 } from 'lucide-react';
 
 const engineeringFields = [
   { name: 'Electronics', icon: <Cpu size={32} />, color: 'from-yellow-500/30' },
@@ -11,120 +11,225 @@ const engineeringFields = [
   { name: 'Chemistry', icon: <TestTube2 size={32} />, color: 'from-purple-500/30' }
 ];
 
-export default function Landing() {
-  const nodeRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeNode, setActiveNode] = useState<number | null>(null);
-  const footerRef = useRef(null);
-  const isInView = useInView(footerRef, { once: true, amount: 0.1 });
+const CardComponent = ({ field, index }: { field: any, index: number }) => {
+  const [isDark, setIsDark] = useState(false);
 
-  const createNode = (index: number) => ({
-    x: Math.sin(index * 0.5) * 150,
-    y: Math.cos(index * 0.5) * 150,
-    delay: index * 0.1
-  });
+  useEffect(() => {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    setIsDark(isDarkMode);
+  }, []);
+
 
   return (
-    <div className="relative w-full bg-background">
-      <div className="h-screen w-full flex flex-col relative overflow-hidden">
-        {/* Background pattern */}
-        <motion.div className="absolute inset-0">
-          <svg className="absolute inset-0 w-[200%] h-[200%] opacity-10 dark:opacity-20">
-            <defs>
-              <pattern 
-                id="circuit" 
-                x="0" 
-                y="0" 
-                width="50" 
-                height="50" 
-                patternUnits="userSpaceOnUse"
-              >
-                <path 
-                  d="M10 10h30v30h-30z M25 10 L25 0 M25 40 L25 50 M10 25 L0 25 M40 25 L50 25" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="0.5"
-                  className="opacity-50"
-                />
-                <motion.circle 
-                  cx="25" 
-                  cy="25" 
-                  r="2"
-                  fill="currentColor"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.3, 0.7, 0.3]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-              </pattern>
-            </defs>
-            <motion.rect 
+    <motion.div
+      className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
+        border border-primary/10 dark:border-white/10
+        flex flex-col items-center text-center min-w-[250px]
+        ${field.color} to-transparent`}
+      whileHover={{ 
+        scale: 1.05,
+        y: -10,
+        boxShadow: isDark
+        ? "0 20px 30px -10px rgba(255,255,255,0.2)"
+        : "0 20px 30px -10px rgba(0,0,0,0.4)",
+        transition: { duration: 0.2, ease: "easeOut" }
+      }}
+    >
+      <motion.div 
+        className="mb-4 text-primary dark:text-white/90"
+        whileHover={{ rotate: [0, -10, 10, 0] }}
+        transition={{ duration: 0.5 }}
+      >
+        {field.icon}
+      </motion.div>
+      <h3 className="font-semibold text-lg">{field.name}</h3>
+    </motion.div>
+  );
+};
+
+const CardCarousel = () => {
+  const carouselRef = useRef(null);
+  const [width, setWidth] = useState(0);
+  
+  // Create two sets of cards to create the illusion of infinity
+  const duplicatedFields = [...engineeringFields, ...engineeringFields, ...engineeringFields];
+  
+  useEffect(() => {
+    if (carouselRef.current) {
+      // Calculate the width of a single set of cards
+      setWidth(carouselRef.current.scrollWidth / 3);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollLeft = 0;
+      const scroll = () => {
+        if (carouselRef.current) {
+          if (carouselRef.current.scrollLeft >= width) {
+            carouselRef.current.scrollLeft = 0;
+          } else {
+            carouselRef.current.scrollLeft += 2; 
+          }
+        }
+      };
+      const intervalId = setInterval(scroll, 15); 
+      return () => clearInterval(intervalId);
+    }
+  }, [width]);
+
+  return (
+    <div className="relative w-full max-w-5xl mx-auto mb-12">
+      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10" />
+      
+      {/* Add padding-y to container to accommodate hover effect */}
+      <div className="overflow-hidden py-12"> 
+        <motion.div 
+          ref={carouselRef}
+          className="flex gap-8"
+          drag="x"
+          dragConstraints={{ right: 0, left: -width * 2 }}
+          initial={{ x: 0 }}
+          animate={{ 
+            x: [-width, -width * 2],
+          }}
+          transition={{ 
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30, // Increased speed
+              ease: "linear",
+            }
+          }}
+        >
+          {duplicatedFields.map((field, i) => (
+            <motion.div
+              key={i}
+              className="relative" // Add relative positioning
+              style={{ zIndex: 20 }} // Ensure cards appear above gradients
+            >
+              <CardComponent field={field} index={i} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default function Landing() {
+  const footerRef = useRef(null);
+  const isInView = useInView(footerRef, { once: true, amount: 0.1 });
+  const buttonRef = useRef(null);
+
+  return (
+    <div className="min-h-screen w-full flex flex-col bg-background relative overflow-hidden">
+      {/* Background pattern */}
+      <motion.div className="absolute inset-0">
+        <svg className="absolute inset-0 w-[200%] h-[200%] opacity-30 dark:opacity-20">
+          <defs>
+            <pattern 
+              id="circuit" 
               x="0" 
               y="0" 
-              width="100%" 
-              height="100%" 
-              fill="url(#circuit)"
-              animate={{
-                x: [-20, 0, -20],
-                y: [-20, 0, -20]
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
-          </svg>
-        </motion.div>
+              width="50" 
+              height="50" 
+              patternUnits="userSpaceOnUse"
+            >
+              <path 
+                d="M10 10h30v30h-30z M25 10 L25 0 M25 40 L25 50 M10 25 L0 25 M40 25 L50 25" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="0.5"
+                className="opacity-50 dark:opacity-50"
+              />
+              <motion.circle 
+                cx="25" 
+                cy="25" 
+                r="2"
+                fill="currentColor"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </pattern>
+          </defs>
+          <motion.rect 
+            x="0" 
+            y="0" 
+            width="100%" 
+            height="100%" 
+            fill="url(#circuit)"
+            animate={{
+              x: [-20, 0, -20],
+              y: [-20, 0, -20]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        </svg>
+      </motion.div>
 
-        {/* Main content - centered */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4">
+      {/* Main content - adjusted positioning */}
+      <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center -mt-14">
+        <div className="w-full max-w-[90vw] md:max-w-[85vw] lg:max-w-5xl mx-auto 
+          flex flex-col items-center justify-center gap-4 md:gap-6 py-8">
           {/* Title */}
           <motion.h1 
-            className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r 
-              from-primary via-primary/80 to-primary/60 dark:from-white dark:to-white/60
-              leading-relaxed text-center mb-12 py-2"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent 
+              bg-gradient-to-r from-primary via-primary/80 to-primary/60 
+              dark:from-white dark:to-white/60 leading-relaxed text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Virtual Engineering Labs
+            Virtual Labs - IIITH
           </motion.h1>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto mb-12">
-            {engineeringFields.map((field, i) => (
-              <motion.div
-                key={i}
-                className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
-                  hover:bg-black/10 dark:hover:bg-white/20 
-                  border border-primary/10 dark:border-white/10 cursor-pointer
-                  flex flex-col items-center text-center
-                  ${field.color} to-transparent`}
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <div className="mb-4 text-primary dark:text-white/90">{field.icon}</div>
-                <h3 className="font-semibold text-lg">{field.name}</h3>
-              </motion.div>
-            ))}
+          {/* Cards */}
+          <div className="w-full">
+            <CardCarousel />
           </div>
 
           {/* Button */}
-          <motion.div className="mb-8">
+          <motion.div className="relative group -mt-10">
+            <motion.div
+              className="absolute -inset-1 rounded-lg bg-gradient-to-r 
+                from-primary/50 via-primary/30 to-primary/50 
+                dark:from-white/30 dark:via-white/10 dark:to-white/30 
+                opacity-0 group-hover:opacity-100 
+                blur-lg transition-all duration-500"
+              variants={{
+                hover: {
+                  scale: 1.1,
+                  rotate: -2
+                }
+              }}
+            />
             <Link href="/home">
-              <Button 
-                size="lg"
-                className="bg-primary/80 dark:bg-white/90 dark:text-background 
-                  hover:bg-primary/90 dark:hover:bg-white transition-colors"
+              <motion.button
+                className="relative bg-primary hover:bg-primary/90 text-white  /* Changed text color to white */
+                  dark:bg-white dark:text-background dark:hover:bg-white/90
+                  px-8 py-3 rounded-lg font-semibold text-lg
+                  dark:shadow-[0_4px_14px_0_rgba(255,255,255,0.39)]
+                  transition-all duration-200"
+                variants={{
+                  hover: {
+                    scale: 1.05
+                  }
+                }}
               >
-                Start Learning
-              </Button>
+                <span className="relative z-10">Start Learning</span>
+              </motion.button>
             </Link>
           </motion.div>
         </div>
@@ -133,18 +238,15 @@ export default function Landing() {
       {/* Footer */}
       <motion.footer 
         ref={footerRef}
-        initial={{ opacity: 0, y: 60 }}
-        animate={{
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ 
           opacity: isInView ? 1 : 0,
-          y: isInView ? 0 : 60
+          y: isInView ? 0 : 50 
         }}
-        transition={{
-          duration: 0.8,
-          ease: [0.33, 1, 0.68, 1]  
-        }}
-        className="relative z-20 w-full bg-background/80 backdrop-blur-sm border-t border-primary/10 dark:border-white/10"
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full bg-background/80 backdrop-blur-sm border-t border-primary/10 dark:border-white/10"
       >
-        <div className="container mx-auto py-8 px-4">
+        <div className="container mx-auto py-4 px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Address Section */}
             <div className="space-y-2">
@@ -173,7 +275,7 @@ export default function Landing() {
                 <a href="https://github.com/" 
                    className="text-muted-foreground hover:text-primary dark:hover:text-white transition-colors"
                    target="_blank" rel="noopener noreferrer">
-                  <Github size={20} />
+                  <Youtube size={20} />
                 </a>
                 <a href="https://x.com/TheVirtualLabs" 
                    className="text-muted-foreground hover:text-white dark:hover:text-white transition-colors"
