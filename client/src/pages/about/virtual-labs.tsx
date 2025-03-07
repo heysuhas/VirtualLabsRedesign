@@ -453,10 +453,10 @@ export default function VirtualLabsAbout() {
                   className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 shadow-md"
                 >
                   <p className="italic text-muted-foreground mb-4">
-                    "Virtual Labs has transformed how we teach practical concepts. Students can now experiment without constraints of physical labs."
+                    "One of the primary advantages associated with the utilization of Virtual Laboratory is the ability for students to engage in self-paced learning. This technology facilitates students in engaging in studying, preparing for, and doing laboratory experiments at their own convenience, regardless of time and location."
                   </p>
-                  <div className="font-semibold">Dr. Rajesh Kumar</div>
-                  <div className="text-sm text-muted-foreground">Professor, IIT Delhi</div>
+                  <div className="font-semibold">Dr Mohd Zubair Ansari</div>
+                  <div className="text-sm text-muted-foreground">Professor, National Institute of Technology Srinagar</div>
                 </motion.div>
 
                 <motion.div
@@ -466,10 +466,10 @@ export default function VirtualLabsAbout() {
                   className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 shadow-md"
                 >
                   <p className="italic text-muted-foreground mb-4">
-                    "As a student from a rural college, Virtual Labs gave me access to advanced equipment I would never have experienced otherwise."
+                    "Virtual Labs are implemented in USAR, GGSIPU and are useful in understanding the theories and concepts of science or other subjects that cannot be studied alone only by textbooks. It has the great potential to enhance actual laboratory experiences. Furthermore, the best progressive learning and performance for real experiments appears when the virtual laboratory preceded paper-based practical experiments."
                   </p>
-                  <div className="font-semibold">Priya Sharma</div>
-                  <div className="text-sm text-muted-foreground">Engineering Student</div>
+                  <div className="font-semibold">Dr. Khyati Chopra</div>
+                  <div className="text-sm text-muted-foreground">Professor, USAR GGSIPU</div>
                 </motion.div>
 
                 <motion.div
@@ -479,10 +479,10 @@ export default function VirtualLabsAbout() {
                   className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 shadow-md"
                 >
                   <p className="italic text-muted-foreground mb-4">
-                    "The interactive simulations have significantly improved student engagement and understanding of complex concepts."
+                    "Virtual Labs is the knowledge seed for the students of the science and technology domain. Such an astonishing platform would enlighten the learning path of the students before they move to the real lab for the experiments. The students may realize the look and feel of the real lab and optimize the efforts, time, and funds involved in performing the real labs. The best part of Virtual Labs is to use it with personal comfort and convenience."
                   </p>
-                  <div className="font-semibold">Dr. Anita Desai</div>
-                  <div className="text-sm text-muted-foreground">HOD, Computer Science, IIIT Hyderabad</div>
+                  <div className="font-semibold">Dr. Pankaj K. Goswami</div>
+                  <div className="text-sm text-muted-foreground">Faculty, Amity University</div>
                 </motion.div>
 
                 <motion.div
@@ -492,10 +492,10 @@ export default function VirtualLabsAbout() {
                   className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 shadow-md"
                 >
                   <p className="italic text-muted-foreground mb-4">
-                    "Virtual Labs has been instrumental in continuing education during the pandemic when physical labs were inaccessible."
+                    "Virtual lab is a platform which provides an opportunity to understand the theoretical concept in very easy way with the help of simulator. Pretest and post-test feature provided make the self-assessment part easy for the students. This platform provides a wide range of experiments covering almost all kind of domain and it is very beneficial for the students."
                   </p>
-                  <div className="font-semibold">Prof. Sunil Mehta</div>
-                  <div className="text-sm text-muted-foreground">Principal, Engineering College</div>
+                  <div className="font-semibold">Radheshyam Acholia</div>
+                  <div className="text-sm text-muted-foreground">Nodal Coordinator, Chameli Devi Group of Institution</div>
                 </motion.div>
               </div>
             </motion.div>
