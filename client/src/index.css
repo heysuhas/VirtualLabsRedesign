@@ -16,6 +16,24 @@
   }
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-180px * 8 - 1rem * 8));
+  }
+}
+
+.animate-scroll {
+  animation: scroll 25s linear infinite;
+}
+
+.animate-pause {
+  animation: scroll 25s linear infinite;
+  animation-play-state: paused;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

@@ -2,16 +2,20 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { motion, useAnimation, useInView, useMotionValue, useAnimationControls } from 'framer-motion';
-import { Youtube, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTube2 } from 'lucide-react';
+import { Youtube, Twitter, Linkedin, Mail, Facebook, Cpu, Cog, MonitorDot, TestTube2, Beaker, Building2, Atom, FlaskConical } from 'lucide-react';
 
 const engineeringFields = [
-  { name: 'Electronics', icon: <Cpu size={32} />, color: 'from-yellow-500/30' },
-  { name: 'Mechanics', icon: <Cog size={32} />, color: 'from-blue-500/30' },
-  { name: 'Computer Science', icon: <MonitorDot size={32} />, color: 'from-green-500/30' },
-  { name: 'Chemistry', icon: <TestTube2 size={32} />, color: 'from-purple-500/30' }
+  { name: 'Electronics', icon: <Cpu size={32} />, color: 'bg-gradient-to-br from-amber-500/20 to-yellow-500/10' },
+  { name: 'Mechanics', icon: <Cog size={32} />, color: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/10' },
+  { name: 'Computer Science', icon: <MonitorDot size={32} />, color: 'bg-gradient-to-br from-emerald-500/20 to-green-500/10' },
+  { name: 'Chemistry', icon: <TestTube2 size={32} />, color: 'bg-gradient-to-br from-violet-500/20 to-purple-500/10' },
+  { name: 'BioTech', icon: <Beaker size={32} />, color: 'bg-gradient-to-br from-pink-500/20 to-rose-500/10' },
+  { name: 'Physical Sciences', icon: <Atom size={32} />, color: 'bg-gradient-to-br from-indigo-500/20 to-blue-500/10' },
+  { name: 'Civil', icon: <Building2 size={32} />, color: 'bg-gradient-to-br from-orange-500/20 to-amber-500/10' },
+  { name: 'Chemical Science', icon: <FlaskConical size={32} />, color: 'bg-gradient-to-br from-teal-500/20 to-green-500/10' }
 ];
 
-const CardComponent = ({ field, index, onHover }: { field: any, index: number, onHover: (hovering: boolean) => void }) => {
+const CardComponent = ({ field }: { field: any }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -21,105 +25,74 @@ const CardComponent = ({ field, index, onHover }: { field: any, index: number, o
 
   return (
     <motion.div
-      className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
-        border border-primary/10 dark:border-white/10
-        flex flex-col items-center text-center min-w-[250px] cursor-pointer
-        ${field.color} to-transparent`}
+      className={`p-5 rounded-2xl ${field.color} backdrop-blur-md 
+        border border-primary/20 dark:border-white/10
+        flex flex-col items-center justify-center text-center w-[180px] h-[180px] cursor-pointer
+        relative overflow-hidden`}
       whileHover={{ 
         scale: 1.05,
-        y: -10,
+        y: -5,
         boxShadow: isDark
-          ? "0 20px 30px -10px rgba(255,255,255,0.2)"
-          : "0 20px 30px -10px rgba(0,0,0,0.4)",
-        transition: { duration: 0.2, ease: "easeOut" }
+          ? "0 15px 30px -5px rgba(255,255,255,0.1)"
+          : "0 15px 30px -5px rgba(0,0,0,0.15)",
       }}
-      onMouseEnter={() => onHover(true)}
-      onMouseLeave={() => onHover(false)}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      <motion.div 
-        className="mb-4 text-primary dark:text-white/90"
-        whileHover={{ rotate: [0, -10, 10, 0] }}
-        transition={{ duration: 0.5 }}
+      {/* Icon container - no glow */}
+      <div 
+        className="relative mb-4 p-3 rounded-full bg-primary/10 dark:bg-white/10 backdrop-blur-sm"
       >
-        {field.icon}
-      </motion.div>
-      <h3 className="font-semibold text-lg">{field.name}</h3>
+        <div className="text-primary dark:text-white/90 relative z-10">
+          {field.icon}
+        </div>
+      </div>
+      
+      {/* Title - no animation */}
+      <h3 className="font-semibold text-lg relative z-10">
+        {field.name}
+      </h3>
     </motion.div>
   );
 };
 
-const CardCarousel = () => {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+const InfiniteCarousel = () => {
   const [isPaused, setIsPaused] = useState(false);
-  const controls = useAnimationControls();
-  const x = useMotionValue(-width);
+  const carouselRef = useRef<HTMLDivElement>(null);
   
-  const duplicatedFields = [...engineeringFields, ...engineeringFields, ...engineeringFields];
+  // Create a larger set of cards for smoother infinite scrolling
+  // Duplicate the fields multiple times to ensure smooth looping
+  const items = [...engineeringFields, ...engineeringFields, ...engineeringFields];
   
-  useEffect(() => {
-    if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth / 2);
-    }
-  }, []);
-
-  useEffect(() => {
-  if (isPaused) {
-    controls.stop();
-  } else {
-    controls.start({
-      x: [x.get(), -width], // Resume from current position
-      transition: {
-        x: {
-          from: x.get(), // Continue from where it stopped
-          to: -width,
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: (25 * (1 - (x.get() / -width))), // Adjust duration dynamically
-          ease: "linear",
-        }
-      }
-    });
-  }
-}, [isPaused, controls, width, x]);
-
-  
-
   return (
-    <div className="relative w-full max-w-5xl mx-auto mb-12">
-      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-background to-transparent z-10" />
-      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-background to-transparent z-10" />
+    <div className="w-full overflow-hidden py-4 relative">
+      {/* Left and right fade gradients */}
+      <div className="absolute left-0 top-0 w-40 h-full bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="absolute right-0 top-0 w-40 h-full bg-gradient-to-l from-background to-transparent z-10" />
       
-      <div className="overflow-hidden py-12"> 
-        <motion.div 
-          ref={carouselRef}
-          className="flex gap-8"
-          initial={{ x: -width }}
-          animate={controls}
-          style={{ x }}
+      {/* Carousel track */}
+      <div
+        ref={carouselRef}
+        className="flex gap-4 px-4"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div 
+          className={`flex gap-4 ${isPaused ? 'animate-pause' : 'animate-scroll'}`}
+          style={{
+            animationPlayState: isPaused ? 'paused' : 'running'
+          }}
         >
-          {duplicatedFields.map((field, i) => (
+          {items.map((field, index) => (
             <motion.div
-              key={i}
-              className="relative"
-              style={{ zIndex: 20 }}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
+              key={`card-${index}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: Math.min(index * 0.1, 1) }}
             >
-              <div className={`p-8 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
-                border border-primary/10 dark:border-white/10
-                flex flex-col items-center text-center min-w-[250px]
-                ${field.color} to-transparent
-                hover:scale-105 hover:-translate-y-2 transition-transform duration-300`}
-              >
-                <div className="mb-4 text-primary dark:text-white/90">
-                  {field.icon}
-                </div>
-                <h3 className="font-semibold text-lg">{field.name}</h3>
-              </div>
+              <CardComponent field={field} />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -128,7 +101,11 @@ const CardCarousel = () => {
 export default function Landing() {
   const footerRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, amount: 0.1 });
-  const buttonRef = useRef(null);
+  
+  // Ensure page loads at the top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-background relative overflow-hidden">
@@ -187,28 +164,48 @@ export default function Landing() {
         </svg>
       </motion.div>
 
-      {/* Main content - adjusted positioning */}
-      <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center -mt-14">
+      {/* Main content - shifted upward with negative top margin */}
+      <div className="relative z-10 w-full h-screen flex flex-col items-center justify-center -mt-16">
         <div className="w-full max-w-[90vw] md:max-w-[85vw] lg:max-w-5xl mx-auto 
-          flex flex-col items-center justify-center gap-4 md:gap-6 py-8">
+          flex flex-col items-center justify-center gap-3 md:gap-4">
           {/* Title */}
           <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent 
               bg-gradient-to-r from-primary via-primary/80 to-primary/60 
-              dark:from-white dark:to-white/60 leading-relaxed text-center"
+              dark:from-white dark:to-white/60 leading-tight text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Virtual Labs - IIITH
           </motion.h1>
 
-          {/* Cards */}
-          <div className="w-full">
-            <CardCarousel />
-          </div>
+          {/* Subtitle - slightly smaller */}
+          <motion.p
+            className="text-lg text-muted-foreground max-w-2xl text-center mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            Experience hands-on learning through interactive simulations and remote experiments
+          </motion.p>
 
-          {/* Button */}
-          <motion.div className="relative group -mt-10">
+          {/* New Carousel - reduced vertical space */}
+          <motion.div 
+            className="w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <InfiniteCarousel />
+          </motion.div>
+
+          {/* Button - moved closer to carousel */}
+          <motion.div 
+            className="relative group mt-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
             <motion.div
               className="absolute -inset-1 rounded-lg bg-gradient-to-r 
                 from-primary/50 via-primary/30 to-primary/50 
@@ -224,16 +221,13 @@ export default function Landing() {
             />
             <Link href="/home">
               <motion.button
-                className="relative bg-primary hover:bg-primary/90 text-white  /* Changed text color to white */
+                className="relative bg-primary hover:bg-primary/90 text-white
                   dark:bg-white dark:text-background dark:hover:bg-white/90
-                  px-8 py-3 rounded-lg font-semibold text-lg
+                  px-6 py-2 rounded-lg font-semibold text-lg
                   dark:shadow-[0_4px_14px_0_rgba(255,255,255,0.39)]
                   transition-all duration-200"
-                variants={{
-                  hover: {
-                    scale: 1.05
-                  }
-                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10">Start Learning</span>
               </motion.button>
