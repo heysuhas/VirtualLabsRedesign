@@ -7,6 +7,7 @@ import Landing from "./pages/landing";
 import Home from "./pages/home";
 import Experiment from "./pages/experiment";
 import VirtualLabsAbout from "./pages/about/virtual-labs";
+import VLEAD from "./pages/about/vlead";
 import NotFound from "./pages/not-found";
 import BlobCursor from "./components/blob-cursor";
 
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/home" component={Home} />
             <Route path="/experiments/:id" component={Experiment} />
             <Route path="/about/virtual-labs" component={VirtualLabsAbout} />
+            <Route path="/about/vlead" component={VLEAD} />
             <Route component={NotFound} />
           </Switch>
         </main>
