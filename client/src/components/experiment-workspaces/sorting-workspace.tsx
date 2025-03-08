@@ -144,7 +144,7 @@ export default function SortingWorkspace({ experiment }: SortingWorkspaceProps) 
           </div>
 
           <motion.div 
-            className="h-64 bg-card rounded-lg p-6 flex items-end justify-center gap-2"
+            className="h-64 bg-card rounded-lg  flex items-end justify-center gap-2"
             animate={{
               rotateX: useSensors ? orientation.beta : 0,
               rotateY: useSensors ? orientation.gamma : 0,
@@ -169,12 +169,19 @@ export default function SortingWorkspace({ experiment }: SortingWorkspaceProps) 
                   }}
                   className="w-12 bg-primary rounded-t-lg flex items-end justify-center pb-2"
                   style={{ height: value * 2 }}
-                >
-                  {value}
-                </motion.div>
+                />
               ))}
             </AnimatePresence>
           </motion.div>
+
+          {/* Array numbers displayed below the graph */}
+          <div className="flex justify-center gap-2 mt-1">
+            {array.map((value, index) => (
+              <div key={index} className="text-center w-12">
+                {value}
+              </div>
+            ))}
+          </div>
 
           {useSensors && (
             <div className="text-sm text-muted-foreground">
@@ -188,8 +195,8 @@ export default function SortingWorkspace({ experiment }: SortingWorkspaceProps) 
 
       <TabsContent value="code">
         <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-          <code>{`
-function bubbleSort(arr) {
+          <code>
+{`function bubbleSort(arr) {
   const n = arr.length;
 
   for (let i = 0; i < n - 1; i++) {
@@ -202,8 +209,8 @@ function bubbleSort(arr) {
   }
 
   return arr;
-}
-          `}</code>
+}`}
+          </code>
         </pre>
       </TabsContent>
     </Tabs>

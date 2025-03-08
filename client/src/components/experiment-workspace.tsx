@@ -10,7 +10,7 @@ interface ExperimentWorkspaceProps {
   experiment: Experiment;
 }
 
-export default function ExperimentWorkspace({ experiment }: ExperimentWorkspaceProps) {
+export default function ExperimentWorkspce({ experiment }: ExperimentWorkspaceProps) {
   const [array, setArray] = useState([64, 34, 25, 12, 22, 11, 90]);
   const [sorting, setSorting] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);

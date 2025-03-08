@@ -66,3 +66,12 @@
     @apply bg-white border-0 !important;
   }
 }
+
+@media screen and (max-width: 1030px) {
+  .header-users {
+    display: none;
+  }
+  .hide-blob-cursor {
+    display: none !important;
+  }
+}
