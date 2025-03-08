@@ -362,16 +362,17 @@ export default function VirtualLabsAbout() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ 
                     boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                    background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%)",
-                    borderColor: "rgba(var(--primary-rgb), 0.5)",
                     y: -5,
                     transition: { duration: 0.2 }
                   }}
-                  className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 text-center relative overflow-hidden cursor-pointer"
+                  style={{
+                    background: "white"
+                  }}
+                  className="dark:!bg-black backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 text-center relative overflow-hidden cursor-pointer"
                 >
                   {/* Animated background element */}
                   <motion.div 
-                    className="absolute inset-0 bg-primary/5 dark:bg-white/5 z-0"
+                    className="absolute inset-0 bg-blue-50 dark:bg-blue-900/20 z-0"
                     initial={{ x: "-100%" }}
                     whileHover={{ x: "100%" }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -381,7 +382,8 @@ export default function VirtualLabsAbout() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={statsVisible ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                    className="text-3xl md:text-4xl font-bold text-primary dark:text-white relative z-10"
+                    style={{ color: "#2563eb" }} 
+                    className="text-3xl md:text-4xl font-bold dark:!text-blue-300 relative z-10"
                     whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                   >
                     {stat.value}
@@ -390,7 +392,7 @@ export default function VirtualLabsAbout() {
                     initial={{ opacity: 0 }}
                     animate={statsVisible ? { opacity: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    className="text-sm text-muted-foreground mt-2 relative z-10"
+                    className="text-sm text-gray-700 dark:text-gray-300 mt-2 relative z-10"
                   >
                     {stat.label}
                   </motion.div>
