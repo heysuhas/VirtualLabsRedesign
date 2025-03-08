@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
@@ -13,12 +13,68 @@ import {
 } from "@/components/ui/accordion";
 
 export default function VirtualLabsAbout() {
+  const [overviewKey, setOverviewKey] = useState(0);
   const statsRef = useRef(null);
   const stakeholdersRef = useRef(null);
-  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
-  const isStakeholdersInView = useInView(stakeholdersRef, { once: true, amount: 0.3 });
+  
+  // Start with false to allow animations to play
+  const [statsVisible, setStatsVisible] = useState(false);
+  const [stakeholdersVisible, setStakeholdersVisible] = useState(false);
 
   const [activeTab, setActiveTab] = useState("overview");
+
+  // Set up intersection observers manually
+  useEffect(() => {
+    if (activeTab === "overview") {
+      // Reset visibility states first
+      setStatsVisible(false);
+      setStakeholdersVisible(false);
+      
+      // Force re-render
+      setOverviewKey(prev => prev + 1);
+      
+      // Delay setting visibility to allow animations to play
+      const timer = setTimeout(() => {
+        setStatsVisible(true);
+        
+        // Delay stakeholders animation slightly for a cascading effect
+        const stakeholdersTimer = setTimeout(() => {
+          setStakeholdersVisible(true);
+        }, 300);
+        
+        return () => clearTimeout(stakeholdersTimer);
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab]);
+  
+  // Keep the observers for scroll behavior
+  useEffect(() => {
+    if (activeTab === "overview" && statsRef.current) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setStatsVisible(true);
+        }
+      }, { threshold: 0.2 });
+      
+      statsObserver.observe(statsRef.current);
+      return () => statsObserver.disconnect();
+    }
+  }, [activeTab, overviewKey]);
+  
+  useEffect(() => {
+    if (activeTab === "overview" && stakeholdersRef.current) {
+      const stakeholdersObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setStakeholdersVisible(true);
+        }
+      }, { threshold: 0.2 });
+      
+      stakeholdersObserver.observe(stakeholdersRef.current);
+      return () => stakeholdersObserver.disconnect();
+    }
+  }, [activeTab, overviewKey]);
 
   const stakeholders = [
     {
@@ -275,7 +331,7 @@ export default function VirtualLabsAbout() {
             <TabsTrigger value="faq">FAQ</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-12">
+          <TabsContent value="overview" className="space-y-12" key={overviewKey}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -293,7 +349,7 @@ export default function VirtualLabsAbout() {
               </div>
             </motion.div>
 
-            {/* Stats section */}
+            {/* Stats section - use statsVisible instead of isStatsInView */}
             <motion.div 
               ref={statsRef}
               className="grid grid-cols-2 md:grid-cols-4 gap-6"
@@ -302,13 +358,13 @@ export default function VirtualLabsAbout() {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isStatsInView ? { opacity: 1, scale: 1 } : {}}
+                  animate={statsVisible ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-card/50 backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 text-center"
                 >
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }}
-                    animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+                    animate={statsVisible ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                     className="text-3xl md:text-4xl font-bold text-primary dark:text-white"
                   >
@@ -316,7 +372,7 @@ export default function VirtualLabsAbout() {
                   </motion.div>
                   <motion.div 
                     initial={{ opacity: 0 }}
-                    animate={isStatsInView ? { opacity: 1 } : {}}
+                    animate={statsVisible ? { opacity: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     className="text-sm text-muted-foreground mt-2"
                   >
@@ -326,7 +382,7 @@ export default function VirtualLabsAbout() {
               ))}
             </motion.div>
 
-            {/* Stakeholders section */}
+            {/* Stakeholders section - use stakeholdersVisible instead of isStakeholdersInView */}
             <div>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -345,7 +401,7 @@ export default function VirtualLabsAbout() {
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isStakeholdersInView ? { opacity: 1, y: 0 } : {}}
+                    animate={stakeholdersVisible ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: index * 0.05 }}
                     className={`p-6 rounded-xl bg-black/5 dark:bg-white/10 backdrop-blur-sm 
                       border border-primary/10 dark:border-white/10
