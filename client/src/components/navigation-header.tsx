@@ -199,7 +199,6 @@ export default function NavigationHeader() {
             <Activity className="ml-2 h-4 w-4" />
             <span>Views: 124.0M</span>
           </div>
-
           <ThemeToggle />
 
           {/* Mobile Navigation - moved here */}

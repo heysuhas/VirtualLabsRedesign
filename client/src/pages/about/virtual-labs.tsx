@@ -156,57 +156,57 @@ export default function VirtualLabsAbout() {
     {
       name: "IIT Delhi",
       role: "Coordinating Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Delhi"
+      image: "https://i.imgur.com/LAIiAGF.png"
     },
     {
       name: "IIT Bombay",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Bombay"
+      image: "https://mir-s3-cdn-cf.behance.net/projects/404/81ab6c43919295.Y3JvcCw2NTYsNTE0LDI3MiwzOTQ.jpeg"
     },
     {
       name: "IIT Kanpur",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Kanpur"
+      image: "https://i.imgur.com/FaohxU2.png"
     },
     {
       name: "IIT Kharagpur",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Kharagpur"
+      image: "https://i.imgur.com/f550atE.jpg"
     },
     {
       name: "IIT Madras",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Madras"
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/IIT_Madras_Logo.svg/1200px-IIT_Madras_Logo.svg.png"
     },
     {
       name: "IIT Roorkee",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Roorkee"
+      image: "https://i.imgur.com/I5LJzKz.jpg"
     },
     {
       name: "IIT Guwahati",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIT+Guwahati"
+      image: "https://i.imgur.com/oVIlBjA.png"
     },
     {
       name: "IIIT Hyderabad",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=IIIT+Hyderabad"
+      image: "https://i.pinimg.com/736x/a4/c1/d6/a4c1d6b57a63155dd2cfd6c025078bae.jpg"
     },
     {
       name: "Amrita Vishwa Vidyapeetham",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=Amrita+University"
+      image: "https://i.imgur.com/gEpkN9H.jpg"
     },
     {
       name: "Dayalbagh Educational Institute",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=DEI"
+      image: "https://i.imgur.com/HHM3L0F.jpg"
     },
     {
       name: "NIT Karnataka",
       role: "Partner Institute",
-      image: "https://placehold.co/200x100/e2e8f0/1e293b?text=NITK"
+      image: "https://i.imgur.com/aPDNXRY.jpg"
     }
   ];
 
