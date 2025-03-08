@@ -370,6 +370,7 @@ export default function VirtualLabsAbout() {
                   }}
                   className="dark:!bg-black backdrop-blur-sm border border-primary/10 dark:border-white/10 rounded-xl p-6 text-center relative overflow-hidden cursor-pointer"
                 >
+                  {/* Animated background element */}
                   <motion.div 
                     className="absolute inset-0 bg-blue-50 dark:bg-blue-900/20 z-0"
                     initial={{ x: "-100%" }}
