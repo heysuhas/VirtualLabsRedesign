@@ -13,6 +13,7 @@ const BlobCursor = () => {
     mass: 0.1
   });
   const [isPointer, setIsPointer] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     cursorX.set(e.clientX);
@@ -30,9 +31,18 @@ const BlobCursor = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsHidden(window.innerWidth <= 1030);
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+      className={`fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference ${isHidden ? 'hide-blob-cursor' : ''}`}
       style={{
         x: cursorX,
         y: cursorY,
