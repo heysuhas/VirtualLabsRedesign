@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Experiment, Preferences } from "@shared/schema";
+import { Search } from "lucide-react";
 
 type FilterType = "all" | "popular" | "recent" | "starred";
 
@@ -65,13 +66,16 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
-        <Input
-          type="search"
-          placeholder="Search experiments..."
-          className="max-w-sm"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search experiments..."
+            className="pl-10 w-full [&::-webkit-search-cancel-button]:cursor-custom"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <div className="flex gap-2">
           <Button
             variant={activeFilter === "all" ? "default" : "outline"}

@@ -54,17 +54,33 @@ export default function ExperimentCard({ experiment, onClick }: ExperimentCardPr
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.3 }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`absolute top-2 right-2 transition-all duration-300 ${
-                isStarred ? "text-yellow-500" : "text-white/70 hover:text-white"
-              }`}
-              onClick={(e) => starMutation.mutate(e)}
-            >
-              <Star className="h-5 w-5" fill={isStarred ? "currentColor" : "none"} />
-            </Button>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/30 z-10" />
+            <div className="absolute top-2 right-2 z-20">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="h-8 w-8 
+                  bg-gray-800/50 hover:bg-gray-800/70
+                  dark:bg-gray-600/50 dark:hover:bg-gray-700/60
+                  backdrop-blur-sm
+                  text-white
+                  hover:text-white
+                  ring-1 ring-white/20 hover:ring-white/40
+                  transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();  // Prevent navigation
+                  e.stopPropagation(); // Stop event bubbling
+                  starMutation.mutate(e);
+                }}
+              >
+                <Star 
+                  className={`h-4 w-4 ${
+                    isStarred ? 'text-yellow-400' : 'text-white'
+                  }`} 
+                  fill={isStarred ? "currentColor" : "none"} 
+                />
+              </Button>
+            </div>
           </div>
 
           <CardHeader>
