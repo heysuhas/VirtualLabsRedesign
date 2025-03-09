@@ -41,6 +41,7 @@ import pic13 from "../../assets/13.jpg"
 import pic14 from "../../assets/14.jpg"
 import pic15 from "../../assets/15.jpg"
 import pic16 from "../../assets/16.jpg"
+import WorkshopDataTable from "../../components/workshop-data-table"
 
 const images = [pic1, pic2, pic3, pic4, pic5, pic6, pic7, pic8, pic9, pic10, pic11, pic12, pic13, pic14, pic15, pic16]
 
@@ -582,13 +583,7 @@ export default function Outreach() {
                         Workshop Data {activeWorkshopOption.replace("data-", "")}
                       </h2>
                     </div>
-                    <p className="text-muted-foreground">
-                      Detailed workshop statistics and information for {activeWorkshopOption.replace("data-", "")}.
-                    </p>
-                    {/* Year-specific workshop data would go here */}
-                    <div className="p-8 text-center text-muted-foreground">
-                      Workshop data for {activeWorkshopOption.replace("data-", "")} placeholder
-                    </div>
+                    <WorkshopDataTable year={parseInt(activeWorkshopOption.replace("data-", ""))} />
                   </div>
                 )}
               </motion.div>
