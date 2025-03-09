@@ -18,25 +18,57 @@ import pic16 from '../../assets/16.jpg';
 
 export default function Facilitator() {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4 text-center mb-5">Outreach</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
-        <img alt="Image 1" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic1} loading="lazy" decoding="async" />
-        <img alt="Image 2" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic2} loading="lazy" decoding="async" />
-        <img alt="Image 3" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic3} loading="lazy" decoding="async" />
-        <img alt="Image 4" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic4} loading="lazy" decoding="async" />
-        <img alt="Image 5" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic5} loading="lazy" decoding="async" />
-        <img alt="Image 6" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic6} loading="lazy" decoding="async" />
-        <img alt="Image 7" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic7} loading="lazy" decoding="async" />
-        <img alt="Image 8" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic8} loading="lazy" decoding="async" />
-        <img alt="Image 9" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic9} loading="lazy" decoding="async" />
-        <img alt="Image 10" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic10} loading="lazy" decoding="async" />
-        <img alt="Image 11" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic11} loading="lazy" decoding="async" />
-        <img alt="Image 12" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic12} loading="lazy" decoding="async" />
-        <img alt="Image 13" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic13} loading="lazy" decoding="async" />
-        <img alt="Image 14" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic14} loading="lazy" decoding="async" />
-        <img alt="Image 15" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic15} loading="lazy" decoding="async" />
-        <img alt="Image 16" className="gal-img rounded-lg shadow-lg transform transition duration-500 hover:scale-105" width="400" src={pic16} loading="lazy" decoding="async" /> 
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-black-300 dark:border-purple-700">
+          <img alt="Image 1" className="w-full h-full object-cover laminated-effect" src={pic1} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 2" className="w-full h-full object-cover laminated-effect" src={pic2} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 3" className="w-full h-full object-cover laminated-effect" src={pic3} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 4" className="w-full h-full object-cover laminated-effect" src={pic4} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 5" className="w-full h-full object-cover laminated-effect" src={pic5} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 6" className="w-full h-full object-cover laminated-effect" src={pic6} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 7" className="w-full h-full object-cover laminated-effect" src={pic7} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 8" className="w-full h-full object-cover laminated-effect" src={pic8} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 9" className="w-full h-full object-cover laminated-effect" src={pic9} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 10" className="w-full h-full object-cover laminated-effect" src={pic10} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 11" className="w-full h-full object-cover laminated-effect" src={pic11} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 12" className="w-full h-full object-cover laminated-effect" src={pic12} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 13" className="w-full h-full object-cover laminated-effect" src={pic13} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 14" className="w-full h-full object-cover laminated-effect" src={pic14} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 15" className="w-full h-full object-cover laminated-effect" src={pic15} loading="lazy" decoding="async" />
+        </div>
+        <div className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 border-4 border-purple-300 dark:border-purple-700">
+          <img alt="Image 16" className="w-full h-full object-cover laminated-effect" src={pic16} loading="lazy" decoding="async" />
+        </div>
       </div>
     </div>
   );
