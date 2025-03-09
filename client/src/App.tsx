@@ -10,6 +10,8 @@ import VirtualLabsAbout from "./pages/about/virtual-labs";
 import VLEAD from "./pages/about/vlead";
 import NotFound from "./pages/not-found";
 import BlobCursor from "./components/blob-cursor";
+import Facilitator from "./pages/iam/facilitator";
+import Creator from "./pages/iam/creator";
 
 export default function App() {
   return (
@@ -24,6 +26,9 @@ export default function App() {
             <Route path="/experiments/:id" component={Experiment} />
             <Route path="/about/virtual-labs" component={VirtualLabsAbout} />
             <Route path="/about/vlead" component={VLEAD} />
+            <Route path="/outreach" component={Facilitator} />
+            <Route path="/development" component={Creator} />
+            {/* <Route path="/creator" component={Creator} /> */}
             <Route component={NotFound} />
           </Switch>
         </main>
