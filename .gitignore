@@ -4,3 +4,7 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+!client/public/data/
+!client/public/data/Workshop/
+!client/public/data/Workshop/*.csv

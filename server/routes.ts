@@ -1,6 +1,8 @@
 import type { Express } from "express"
 import { createServer, type Server } from "http"
 import { storage } from "./storage"
+import express from "express";
+import path from "path";
 
 // Try different import methods to resolve the issue
 // Method 1: Direct import (original)
@@ -16,6 +18,9 @@ import workshopModule from "./routes/workshop-data";
 const { getWorkshopData } = workshopModule;
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Add this line to serve static files from public directory
+  app.use("/data", express.static(path.join(process.cwd(), "client", "public", "data")));
+
   app.get("/api/experiments", async (_req, res) => {
     const experiments = await storage.getExperiments()
     res.json(experiments)

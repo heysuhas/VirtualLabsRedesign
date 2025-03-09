@@ -51,14 +51,21 @@ export default function WorkshopDataTable({ year }: WorkshopDataTableProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Direct fetch of CSV file from assets folder
-        const response = await fetch(`/src/assets/Workshop/${year}.csv`);
+        // Update the fetch path to use the public directory
+        const response = await fetch(`/data/Workshop/${year}.csv`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch workshop data');
+        }
+        
         const csvText = await response.text();
         
         Papa.parse(csvText, {
           header: true,
           skipEmptyLines: true,
           complete: (results) => {
+            if (results.errors.length > 0) {
+              console.error('CSV parsing errors:', results.errors);
+            }
             setData(results.data as WorkshopData[]);
             setLoading(false);
           },

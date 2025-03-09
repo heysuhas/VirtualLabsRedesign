@@ -8,7 +8,8 @@ export async function getWorkshopData(req: Request, res: Response) {
   const { year } = req.params
 
   try {
-    const csvPath = path.join(process.cwd(), "client", "src", "assets", "Workshop", `${year}.csv`)
+    // Update path to use public directory
+    const csvPath = path.join(process.cwd(), "client", "public", "data", "Workshop", `${year}.csv`)
     const fileContent = await fs.readFile(csvPath, "utf-8")
 
     const results = Papa.parse(fileContent, {
