@@ -276,7 +276,7 @@ function getLinksForSection(section: string, onNavigate: () => void) {
     ],
     'I am': [
       { href: "/home", label: "Learner", description: "Access experiments and learning materials" },
-      { href: "/outreach", label: "Faculty", description: "Resources for educators" },
+      { href: "/outreach", label: "Facilitator", description: "Resources for educators" },
       { href: "/development", label: "Creator", description: "Development tools and guidelines" }
     ],
     'I want to': [
