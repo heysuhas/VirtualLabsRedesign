@@ -33,6 +33,19 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isApiReady, setIsApiReady] = useState(false);
 
+  // Extract video ID from YouTube URL
+  const getYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  const videoId = getYouTubeId(videoUrl);
+
+  if (!videoId) {
+    return <div>Invalid YouTube URL</div>;
+  }
+
   // Initialize YouTube API
   useEffect(() => {
     if (!window.YT) {
@@ -52,10 +65,6 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
   // Initialize player when API is ready
   useEffect(() => {
     if (!isApiReady) return;
-
-    const videoId = videoUrl.includes('youtu.be') 
-      ? videoUrl.split('youtu.be/')[1]
-      : videoUrl.split('v=')[1]?.split('&')[0];
 
     if (!videoId) return;
 
@@ -165,7 +174,7 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: showControls ? 1 : 0, y: showControls ? 0 : 20 }}
         transition={{ duration: 0.2 }}
-        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4"
+        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-4"
       >
         <div className="space-y-2">
           <Slider
@@ -182,7 +191,7 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
                 variant="ghost"
                 size="icon"
                 onClick={togglePlay}
-                className="hover:bg-white/20"
+                className="hover:bg-foreground/20 text-foreground"
               >
                 {isPlaying ? (
                   <Pause className="h-4 w-4" />
@@ -195,7 +204,7 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
                 variant="ghost"
                 size="icon"
                 onClick={toggleMute}
-                className="hover:bg-white/20"
+                className="hover:bg-foreground/20 text-foreground"
               >
                 {volume === 0 ? (
                   <VolumeX className="h-4 w-4" />
@@ -209,10 +218,10 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
                 max={1}
                 step={0.1}
                 onValueChange={([value]) => handleVolumeChange(value)}
-                className="w-24 relative z-50 bg-white/10 rounded-full" // Add background and z-index
+                className="w-24 relative z-50 bg-foreground/10 rounded-full"
               />
 
-              <span className="text-sm text-white">
+              <span className="text-sm text-foreground">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
@@ -225,7 +234,7 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
                   if (!playerRef.current) return;
                   playerRef.current.seekTo(0);
                 }}
-                className="hover:bg-white/20"
+                className="hover:bg-foreground/20 text-foreground"
               >
                 <RotateCcw className="h-4 w-4" />
               </Button>
@@ -234,7 +243,7 @@ export default function CustomVideoPlayer({ videoUrl }: CustomVideoPlayerProps) 
                 variant="ghost"
                 size="icon"
                 onClick={toggleFullscreen}
-                className="hover:bg-white/20"
+                className="hover:bg-foreground/20 text-foreground"
               >
                 {isFullscreen ? (
                   <Minimize className="h-4 w-4" />
