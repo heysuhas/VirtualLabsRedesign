@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Users, School, BookOpen, Award, Lightbulb, Code, Building, 
-  GraduationCap, Network, Briefcase, FileCheck, UserCog 
+  GraduationCap, Network, Briefcase, FileCheck, UserCog, ChevronDown 
 } from 'lucide-react';
 import {
   Accordion,
@@ -11,6 +11,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function VirtualLabsAbout() {
   const [overviewKey, setOverviewKey] = useState(0);
@@ -323,13 +329,50 @@ export default function VirtualLabsAbout() {
           onValueChange={setActiveTab}
           className="w-full max-w-5xl mx-auto"
         >
-          <TabsList className="grid grid-cols-5 w-full mb-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="goals">Goals and Philosophy</TabsTrigger>
-            <TabsTrigger value="institutes">Participating Institutes</TabsTrigger>
-            <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
-            <TabsTrigger value="faq">FAQ</TabsTrigger>
-          </TabsList>
+          <div className="w-full mb-8">
+            {/* Mobile dropdown menu - shown only on small screens */}
+            <div className="md:hidden w-full">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="w-full">
+                  <motion.div
+                    className="flex items-center justify-between w-full px-4 py-2 
+                      bg-muted rounded-lg border border-input hover:bg-accent hover:text-accent-foreground"
+                  >
+                    <span className="capitalize">
+                      {activeTab.split('-').join(' ')}
+                    </span>
+                    <ChevronDown className="h-4 w-4 opacity-50" />
+                  </motion.div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-full min-w-[200px]">
+                  {[
+                    "overview",
+                    "goals",
+                    "institutes",
+                    "testimonials",
+                    "faq"
+                  ].map((tab) => (
+                    <DropdownMenuItem
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className="capitalize"
+                    >
+                      {tab.split('-').join(' ')}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Desktop tabs - hidden on mobile, shown on medium screens and up */}
+            <TabsList className="hidden md:grid md:grid-cols-5 w-full">
+              <TabsTrigger value="overview" className="text-sm">Overview</TabsTrigger>
+              <TabsTrigger value="goals" className="text-sm">Goals and Philosophy</TabsTrigger>
+              <TabsTrigger value="institutes" className="text-sm">Participating Institutes</TabsTrigger>
+              <TabsTrigger value="testimonials" className="text-sm">Testimonials</TabsTrigger>
+              <TabsTrigger value="faq" className="text-sm">FAQ</TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="overview" className="space-y-12" key={overviewKey}>
             <motion.div

@@ -25,8 +25,11 @@ import {
   Rocket, 
   Users, 
   FileText,
-  ExternalLink
+  ExternalLink,
+  ChevronDown
 } from "lucide-react";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { DropdownMenuContent } from "@/components/ui/dropdown-menu";
 
 interface Phase {
   title: string;
@@ -442,14 +445,52 @@ export default function VLEAD() {
           onValueChange={setActiveTab}
           className="w-full max-w-5xl mx-auto"
         >
-          <TabsList className="grid grid-cols-2 md:grid-cols-6 w-full mb-8">
-            <TabsTrigger value="motivation">Motivation</TabsTrigger>
-            <TabsTrigger value="initiatives">Initiatives</TabsTrigger>
-            <TabsTrigger value="timeline">Timeline</TabsTrigger>
-            <TabsTrigger value="currentTeam">Current Team</TabsTrigger>
-            <TabsTrigger value="pastTeam">Past Team</TabsTrigger>
-            <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
-          </TabsList>
+          <div className="w-full mb-8">
+            {/* Mobile dropdown menu */}
+            <div className="md:hidden w-full">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="w-full">
+                  <motion.div
+                    className="flex items-center justify-between w-full px-4 py-2 
+                      bg-muted rounded-lg border border-input hover:bg-accent hover:text-accent-foreground"
+                  >
+                    <span className="capitalize">
+                      {activeTab.split('-').join(' ')}
+                    </span>
+                    <ChevronDown className="h-4 w-4 opacity-50" />
+                  </motion.div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-full min-w-[200px]">
+                  {[
+                    "motivation",
+                    "initiatives",
+                    "timeline",
+                    "currentTeam",
+                    "pastTeam",
+                    "testimonials"
+                  ].map((tab) => (
+                    <DropdownMenuItem
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className="capitalize"
+                    >
+                      {tab.split('-').join(' ')}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Desktop tabs */}
+            <TabsList className="hidden md:grid md:grid-cols-6 w-full">
+              <TabsTrigger value="motivation" className="text-sm">Motivation</TabsTrigger>
+              <TabsTrigger value="initiatives" className="text-sm">Initiatives</TabsTrigger>
+              <TabsTrigger value="timeline" className="text-sm">Timeline</TabsTrigger>
+              <TabsTrigger value="currentTeam" className="text-sm">Current Team</TabsTrigger>
+              <TabsTrigger value="pastTeam" className="text-sm">Past Team</TabsTrigger>
+              <TabsTrigger value="testimonials" className="text-sm">Testimonials</TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="motivation" className="space-y-12">
             <motion.div
@@ -481,7 +522,7 @@ export default function VLEAD() {
               </motion.h2>
               
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -540,7 +581,7 @@ export default function VLEAD() {
 
                 <TabsContent value="userTools">
                   <motion.div 
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -569,7 +610,7 @@ export default function VLEAD() {
 
                 <TabsContent value="devTools">
                   <motion.div 
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -598,7 +639,7 @@ export default function VLEAD() {
 
                 <TabsContent value="vleadTools">
                   <motion.div 
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -661,7 +702,7 @@ export default function VLEAD() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {currentTeam.map((member, index) => (
                   <motion.div
                     key={index}
@@ -710,7 +751,7 @@ export default function VLEAD() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {pastTeam.map((member, index) => (
                   <motion.div
                     key={index}
@@ -759,7 +800,7 @@ export default function VLEAD() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {testimonials.map((testimonial, index) => (
                   <motion.div
                     key={index}
