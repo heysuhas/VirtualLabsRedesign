@@ -1,6 +1,6 @@
 # Virtual Labs Redesign
 
-A modern redesign of virtual laboratory experiments platform.
+A modern redesign of virtual laboratory experiments platform (Redesign of VLabs)
 
 ## Features
 
