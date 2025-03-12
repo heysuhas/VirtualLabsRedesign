@@ -1,17 +1,6 @@
 # 🧪 Virtual Labs Redesign
 A modern redesign of virtual laboratory experiments platform that provides interactive simulations and educational resources for students and educators.
 
-## 📋 Table of Contents
-
-- [Overview](##overview)
-- [Features](##features)
-- [Tech Stack](##tech-stack)
-- [Getting Started](##getting-started)
-- [Usage](##usage)
-- [Contributing](##contributing)
-- [License](##license)
-
-
 ## 🔍 Overview
 
 Virtual Labs Redesign aims to provide an immersive and interactive learning experience through virtual laboratory experiments. The platform enables students to perform experiments in a safe, virtual environment with real-time feedback and assessment tools.
