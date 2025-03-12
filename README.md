@@ -3,13 +3,13 @@ A modern redesign of virtual laboratory experiments platform that provides inter
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](##overview)
+- [Features](##features)
+- [Tech Stack](##tech-stack)
+- [Getting Started](##getting-started)
+- [Usage](##usage)
+- [Contributing](##contributing)
+- [License](##license)
 
 
 ## 🔍 Overview
