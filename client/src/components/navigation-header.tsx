@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "wouter";
 import ThemeToggle from "./theme-toggle";
 import { SiVirtualbox } from "react-icons/si";
+import { Github } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -26,17 +27,19 @@ export default function NavigationHeader() {
       setIsScrolled(scrollPosition > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
-      isScrolled
-        ? "bg-background/70 backdrop-blur-lg border-b shadow-sm"
-        : "bg-transparent"
-    )}>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
+        isScrolled
+          ? "bg-background/70 backdrop-blur-lg border-b shadow-sm"
+          : "bg-transparent"
+      )}
+    >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left side with logo and desktop nav */}
         <div className="flex items-center space-x-8">
@@ -59,7 +62,9 @@ export default function NavigationHeader() {
                         <div className="grid grid-cols-2 gap-4">
                           <Link href="/about/virtual-labs">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Virtual Labs</div>
+                              <div className="text-sm font-medium leading-none">
+                                Virtual Labs
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Learn about Virtual Labs initiative
                               </p>
@@ -67,9 +72,12 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/about/vlead">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">VLEAD</div>
+                              <div className="text-sm font-medium leading-none">
+                                VLEAD
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              The Virtual Labs Engineering, Architecture, and Design (VLEAD) 
+                                The Virtual Labs Engineering, Architecture, and
+                                Design (VLEAD)
                               </p>
                             </a>
                           </Link>
@@ -87,7 +95,9 @@ export default function NavigationHeader() {
                         <div className="grid grid-cols-3 gap-4">
                           <Link href="/home">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Learner</div>
+                              <div className="text-sm font-medium leading-none">
+                                Learner
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Access experiments and learning materials
                               </p>
@@ -95,7 +105,9 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/outreach">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Facilitator</div>
+                              <div className="text-sm font-medium leading-none">
+                                Facilitator
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Resources for educators
                               </p>
@@ -103,7 +115,9 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/development">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Creator</div>
+                              <div className="text-sm font-medium leading-none">
+                                Creator
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Development tools and guidelines
                               </p>
@@ -123,7 +137,9 @@ export default function NavigationHeader() {
                         <div className="grid grid-cols-2 gap-4">
                           <Link href="/experiments">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Create Experiment</div>
+                              <div className="text-sm font-medium leading-none">
+                                Create Experiment
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Host a New Experiment
                               </p>
@@ -131,7 +147,9 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/home">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Start Learning</div>
+                              <div className="text-sm font-medium leading-none">
+                                Start Learning
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Access Virtual Labs Experiments
                               </p>
@@ -139,15 +157,19 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/workshop">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Host Workshop</div>
+                              <div className="text-sm font-medium leading-none">
+                                Host Workshop
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                Help to host a Workshop 
+                                Help to host a Workshop
                               </p>
                             </a>
                           </Link>
                           <Link href="/research">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Explore Research</div>
+                              <div className="text-sm font-medium leading-none">
+                                Explore Research
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Help improve Virtual Labs
                               </p>
@@ -167,7 +189,9 @@ export default function NavigationHeader() {
                         <div className="grid grid-cols-2 gap-4">
                           <Link href="/analytics/usage">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Summary</div>
+                              <div className="text-sm font-medium leading-none">
+                                Summary
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 View analytics summary
                               </p>
@@ -175,7 +199,9 @@ export default function NavigationHeader() {
                           </Link>
                           <Link href="/analytics/feedback">
                             <a className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                              <div className="text-sm font-medium leading-none">Detailed Analysis</div>
+                              <div className="text-sm font-medium leading-none">
+                                Detailed Analysis
+                              </div>
                               <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                 Analysis of the Usage
                               </p>
@@ -193,6 +219,29 @@ export default function NavigationHeader() {
 
         {/* Right side with stats, theme toggle and mobile menu */}
         <div className="flex items-center space-x-4">
+          {/* GitHub Star Button - Added here */}
+          <motion.a
+            href="https://github.com/heysuhas/VirtualLabsRedesign"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex items-center justify-center p-2 rounded-full bg-primary/10 dark:bg-white/10 backdrop-blur-sm border border-primary/20 dark:border-white/20 text-primary dark:text-white/90"
+            initial={{ scale: 1, rotate: 0 }}
+            whileHover={{
+              scale: 1.1,
+            }}
+            whileTap={{ scale: 0.9 }}
+            transition={{
+              scale: {
+                type: "spring",
+                stiffness: 400,
+                damping: 17,
+              },
+            }}
+          >
+            <Github size={16} />
+            <span className="ml-2 text-xs font-medium">Star on GitHub</span>
+          </motion.a>
+
           <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground header-users">
             <User className="h-4 w-4" />
             <span>Users: 17.2M</span>
@@ -201,7 +250,7 @@ export default function NavigationHeader() {
           </div>
           <ThemeToggle />
 
-          {/* Mobile Navigation - moved here */}
+          {/* Mobile Navigation */}
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -233,12 +282,14 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
 
   return (
     <div className="space-y-2">
-      {['About', 'I am', 'I want to', 'Analytics'].map((section) => (
+      {["About", "I am", "I want to", "Analytics"].map((section) => (
         <div key={section} className="space-y-2">
           <Button
             variant="ghost"
             className="w-full justify-start"
-            onClick={() => setOpenSection(openSection === section ? null : section)}
+            onClick={() =>
+              setOpenSection(openSection === section ? null : section)
+            }
           >
             <span>{section}</span>
             <motion.div
@@ -269,31 +320,77 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
 
 // Helper function to get links based on section
 function getLinksForSection(section: string, onNavigate: () => void) {
-  const links: { [key: string]: { href: string; label: string; description?: string }[] } = {
-    'About': [
-      { href: "/about/virtual-labs", label: "Virtual Labs", description: "Learn about Virtual Labs initiative" },
-      { href: "/about/vlead", label: "VLEAD", description: "The Virtual Labs Engineering, Architecture, and Design" }
+  const links: {
+    [key: string]: { href: string; label: string; description?: string }[];
+  } = {
+    About: [
+      {
+        href: "/about/virtual-labs",
+        label: "Virtual Labs",
+        description: "Learn about Virtual Labs initiative",
+      },
+      {
+        href: "/about/vlead",
+        label: "VLEAD",
+        description: "The Virtual Labs Engineering, Architecture, and Design",
+      },
     ],
-    'I am': [
-      { href: "/home", label: "Learner", description: "Access experiments and learning materials" },
-      { href: "/outreach", label: "Facilitator", description: "Resources for educators" },
-      { href: "/development", label: "Creator", description: "Development tools and guidelines" }
+    "I am": [
+      {
+        href: "/home",
+        label: "Learner",
+        description: "Access experiments and learning materials",
+      },
+      {
+        href: "/outreach",
+        label: "Facilitator",
+        description: "Resources for educators",
+      },
+      {
+        href: "/development",
+        label: "Creator",
+        description: "Development tools and guidelines",
+      },
     ],
-    'I want to': [
-      { href: "/experiments", label: "Create Experiment", description: "Host a New Experiment" },
-      { href: "/home", label: "Start Learning", description: "Access Virtual Labs Experiments" },
-      { href: "/workshop", label: "Host Workshop", description: "Help to host a Workshop" },
-      { href: "/research", label: "Explore Research", description: "Help improve Virtual Labs" }
+    "I want to": [
+      {
+        href: "/experiments",
+        label: "Create Experiment",
+        description: "Host a New Experiment",
+      },
+      {
+        href: "/home",
+        label: "Start Learning",
+        description: "Access Virtual Labs Experiments",
+      },
+      {
+        href: "/workshop",
+        label: "Host Workshop",
+        description: "Help to host a Workshop",
+      },
+      {
+        href: "/research",
+        label: "Explore Research",
+        description: "Help improve Virtual Labs",
+      },
     ],
-    'Analytics': [
-      { href: "/analytics/usage", label: "Summary", description: "View analytics summary" },
-      { href: "/analytics/feedback", label: "Detailed Analysis", description: "Analysis of the Usage" }
-    ]
+    Analytics: [
+      {
+        href: "/analytics/usage",
+        label: "Summary",
+        description: "View analytics summary",
+      },
+      {
+        href: "/analytics/feedback",
+        label: "Detailed Analysis",
+        description: "Analysis of the Usage",
+      },
+    ],
   };
 
-  return links[section]?.map(link => (
+  return links[section]?.map((link) => (
     <Link key={link.href} href={link.href}>
-      <a 
+      <a
         className="block px-2 py-1.5 text-sm rounded-md transition-colors hover:bg-accent"
         onClick={() => onNavigate()}
       >
