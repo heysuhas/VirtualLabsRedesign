@@ -1,0 +1,69 @@
+{
+  "projectName": "VirtualLabsRedesign",
+  "projectOwner": "Suhas",
+  "commitConvention": "eslint",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "Suhas",
+      "name": "Suhas Thammysetty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/116619954?v=4",
+      "profile": "http://suhas-resume.vercel.app",
+      "contributions": [
+        "code",
+        "design",
+        "bug",
+        "a11y",
+        "infra",
+        "maintenance",
+        "projectManagement",
+        "review",
+        "security",
+        "tool"
+      ]
+    },
+    {
+      "login": "tCharan369",
+      "name": "Charan Sai",
+      "avatar_url": "https://avatars.githubusercontent.com/u/173562397?v=4",
+      "contributions": [
+        "code",
+        "bug",
+        "maintenance",
+        "review"
+      ]
+    },
+    {
+      "login": "heyyesh",
+      "name": "Yeshwanth Chandana",
+      "avatar_url": "https://avatars.githubusercontent.com/u/141853907?v=4",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "RajVamshi05",
+      "name": "Raj Vamshi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/141853907?v=4",
+      "profile": "https://github.com/RajVamshi05",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "Nikhilhero13",
+      "name": "Nikhil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/182074730?v=4",
+      "profile": "https://github.com/Nikhilhero13",
+      "contributions": [
+        "data"
+      ]
+    }
+  ],
+  "repoType": "github"
+}
