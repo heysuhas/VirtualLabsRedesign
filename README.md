@@ -1,9 +1,9 @@
 ![alt text](/client/src/assets/Intro.png)
 
 
-# ClassPro
-## Better way to manage your academics.
-View, predict, and strategize your success.
+# VirtualLabsRedesign
+## Better way to host & view experiments.
+Explore, Experiment & Excel.
 
 ---
 
