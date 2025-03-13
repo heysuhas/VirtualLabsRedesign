@@ -1,4 +1,4 @@
-![alt text](/public/images/og.png)
+![alt text](/client/src/assets/Intro.png)
 
 
 # ClassPro
