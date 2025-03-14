@@ -1,10 +1,8 @@
 ![alt text](/client/src/assets/Intro.png)
 
 
-# VirtualLabsRedesign
-## Better way to host & view experiments.
-Explore, Experiment & Excel.
-
+# Virtual Labs
+## Innovative & Immersive Learning: Our Virtual Labs Design Approach
 ---
 
 > [!TIP]
@@ -14,7 +12,7 @@ Explore, Experiment & Excel.
 > [!WARNING]
 > We will **NOT** take account for anything caused by your self-hosted instance
 
-## Why Choose vLabs?
+## Why Choose *(this version of)* vLabs?
 
 - **Interactive Experiments:** - Engage with fully interactive laboratory simulations
 - **Pre and Post Tests:** - Assess knowledge before and after experiments
@@ -22,7 +20,7 @@ Explore, Experiment & Excel.
 - **Dark/Light Theme Support:** - Choose your preferred visual mode
 - **Responsive Design:** - Access experiments on any device, from desktop to mobile
 
-### The Objective Behind vLabs
+### What We Aimed For?
  We made sure to use the web-standards and the best-in-class approaches to make sure our service is `fast`, `easy-to-use` and `easy on eyes`.
 
 
