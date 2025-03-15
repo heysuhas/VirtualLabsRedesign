@@ -347,7 +347,7 @@ function getLinksForSection(section: string, onNavigate: () => void) {
         description: "Resources for educators",
       },
       {
-        href: "/development",
+        href: "/creator",
         label: "Creator",
         description: "Development tools and guidelines",
       },

@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/about/virtual-labs" component={VirtualLabsAbout} />
             <Route path="/about/vlead" component={VLEAD} />
             <Route path="/outreach" component={Facilitator} />
-            <Route path="/development" component={Creator} />
+            <Route path="/creator" component={Creator} />
             {/* <Route path="/creator" component={Creator} /> */}
             <Route component={NotFound} />
           </Switch>
