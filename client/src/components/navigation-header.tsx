@@ -219,12 +219,12 @@ export default function NavigationHeader() {
 
         {/* Right side with stats, theme toggle and mobile menu */}
         <div className="flex items-center space-x-4">
-          {/* GitHub Star Button - Added here */}
+          {/* GitHub Star Button - Modified for mobile */}
           <motion.a
             href="https://github.com/heysuhas/VirtualLabsRedesign"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center justify-center p-2 rounded-full bg-primary/10 dark:bg-white/10 backdrop-blur-sm border border-primary/20 dark:border-white/20 text-primary dark:text-white/90"
+            className="flex items-center justify-center p-2 rounded-full bg-primary/10 dark:bg-white/10 backdrop-blur-sm border border-primary/20 dark:border-white/20 text-primary dark:text-white/90"
             initial={{ scale: 1, rotate: 0 }}
             whileHover={{
               scale: 1.1,
@@ -239,7 +239,7 @@ export default function NavigationHeader() {
             }}
           >
             <Github size={16} />
-            <span className="ml-2 text-xs font-medium">Star on GitHub</span>
+            <span className="ml-2 text-xs font-medium hidden sm:inline">Star on GitHub</span>
           </motion.a>
 
           <div className="hidden md:flex items-center space-x-2 text-sm text-muted-foreground header-users">
