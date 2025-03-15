@@ -3,14 +3,14 @@ import { motion, useSpring } from "framer-motion";
 
 const BlobCursor = () => {
   const cursorX = useSpring(0, { 
-    stiffness: 2000, // Increased from 1000
-    damping: 30,     // Decreased from 50
-    mass: 0.05       // Decreased from 0.1
+    stiffness: 2500, // Increased from 1000
+    damping: 20,     // Decreased from 50
+    mass: 0.02       // Decreased from 0.1
   });
   const cursorY = useSpring(0, { 
-    stiffness: 2000, // Increased from 1000
-    damping: 30,     // Decreased from 50
-    mass: 0.05       // Decreased from 0.1
+    stiffness: 2500, // Increased from 1000
+    damping: 20,     // Decreased from 50
+    mass: 0.02      // Decreased from 0.1
   });
   const [isPointer, setIsPointer] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
