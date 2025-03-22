@@ -1,8 +1,6 @@
 ![Virtual Labs](client/src/assets/Intro.png)
 
 # 🚀 Virtual Labs  
-## **Our Virtual Labs Design Approach**  
-
 > [!IMPORTANT]  
 > This project is a **redesign submission for a hackathon** and is **not affiliated with or endorsed by [VLEAD]**. It is for **educational and non-commercial purposes only**.
 > 
